@@ -1,0 +1,77 @@
+import sbt.Keys.javacOptions
+import Dependencies._
+
+lazy val commonSettings = Seq(
+  organization := "com.nike.moirai",
+  organizationName := "Nike",
+  organizationHomepage := Some(url("http://engineering.nike.com")),
+  scalaVersion := "2.12.3",
+  javacOptions ++= Seq("-source", "1.8"),
+  crossPaths := false,
+  autoScalaLibrary := false,
+  bintrayOrganization := Some("nike"),
+  publishMavenStyle := true,
+  licenses += "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"),
+  homepage := Some(url("https://github.com/Nike-Inc/moirai")),
+  startYear := Some(2017),
+  description := "A feature-flag and resource-reloading library for the JVM"
+)
+
+lazy val moirai = (project in file("."))
+  .settings(commonSettings)
+  .settings(
+    publishArtifact := false,
+    // Replace tasks to work around https://github.com/sbt/sbt-bintray/issues/93
+    bintrayRelease := (),
+    bintrayEnsureBintrayPackageExists := (),
+    bintrayEnsureLicenses := (),
+    jacocoAggregateReportSettings := JacocoReportSettings(
+      title = "Moirai Project Coverage",
+      formats = Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML)
+    ).withThresholds(
+      JacocoThresholds(
+        instruction = 65,
+        method = 80,
+        branch = 50,
+        complexity = 65,
+        line = 80,
+        clazz = 90)
+    )
+  )
+  .aggregate(`moirai-core`, `moirai-s3`, `moirai-typesafeconfig`)
+
+lazy val `moirai-core` = project
+  .settings(commonSettings)
+  .settings(
+    libraryDependencies ++= Seq(
+      slf4jApi,
+      scalaTest,
+      equalsVerifier,
+      scalaJava8Compat,
+      scalaCheck,
+      logback
+    )
+  )
+
+lazy val `moirai-s3` = project
+  .dependsOn(`moirai-core`)
+  .settings(commonSettings)
+  .settings(
+    description := "Support for loading Moirai resources from S3",
+    libraryDependencies ++= Seq(
+      awsS3,
+      scalaTest,
+      scalaMock
+    )
+  )
+
+lazy val `moirai-typesafeconfig` = project
+  .dependsOn(`moirai-core`)
+  .settings(commonSettings)
+  .settings(
+    description := "Spport for reading Moirai configuration using Typsafe Config",
+    libraryDependencies ++= Seq(
+      typesafeConfig,
+      scalaTest
+    )
+  )
