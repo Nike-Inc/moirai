@@ -69,7 +69,7 @@ lazy val `moirai-typesafeconfig` = project
   .dependsOn(`moirai-core`)
   .settings(commonSettings)
   .settings(
-    description := "Spport for reading Moirai configuration using Typsafe Config",
+    description := "Support for reading Moirai configuration using Typesafe Config",
     libraryDependencies ++= Seq(
       typesafeConfig,
       scalaTest
