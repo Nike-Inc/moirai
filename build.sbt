@@ -14,7 +14,21 @@ lazy val commonSettings = Seq(
   licenses += "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"),
   homepage := Some(url("https://github.com/Nike-Inc/moirai")),
   startYear := Some(2017),
-  description := "A feature-flag and resource-reloading library for the JVM"
+  description := "A feature-flag and resource-reloading library for the JVM",
+  scmInfo := Some(
+    ScmInfo(
+      url("https://github.com/Nike-Inc/moirai"),
+      "scm:git@github.com:Nike-Inc/moirai.git"
+    )
+  ),
+  developers := List(
+    Developer(
+      id = "jrduncans",
+      name = "Stephen Duncan Jr",
+      email = "jrduncans@stephenduncanjr.com",
+      url = url("https://github.com/jrduncans")
+    )
+  )
 )
 
 lazy val moirai = (project in file("."))

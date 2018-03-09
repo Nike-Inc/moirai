@@ -1,5 +1,9 @@
 # Moirai Release Notes
 
+## Moirai 1.0.1
+
+* POM only challenges for publishing to Maven Central
+
 ## Moirai 1.0.0
 
 Initial release of Moirai
