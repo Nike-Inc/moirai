@@ -2,7 +2,44 @@
 
 ## Moirai 1.1.0
 
-* Deprecate `WhitelistedUsersConfigDecider` and `TypesafeConfigDecider.WHITELISTED_USERS` in favor of new names: `EnabledUsersConfigDecider` and `TypesafeConfigDecider.ENABLED_USERS`
+* Deprecated `WhitelistedUsersConfigDecider` and `TypesafeConfigDecider.WHITELISTED_USERS` in favor of new names: `EnabledUsersConfigDecider` and `TypesafeConfigDecider.ENABLED_USERS`
+* Added support for deciding if a feature is enabled based on custom dimensions
+
+### Example custom dimension usage in Scala
+
+Creating the `FeatureFlagChecker`:
+```scala
+val featureFlagChecker = ConfigFeatureFlagChecker.forReloadableResource(
+    resourceReloader,
+    TypesafeConfigDecider.WHITELISTED_USERS
+      .or(TypesafeConfigDecider.PROPORTION_OF_USERS)
+      .or(TypesafeConfigDecider.enabledCustomStringDimension("country", "enabledCountries"))
+)
+```
+
+Using the `FeatureFlagChecker`:
+```scala
+val featureCheckInput = FeatureCheckInput.forUser(auth.userId).withAdditionalDimension("country", "Belgium")
+if (featureChecker.isFeatureEnabled("random.magicnumber", featureCheckInput)) {
+  "42" 
+} else {
+  calculateRealNumber()
+}
+```
+
+Example config file:
+```
+moirai {
+  random.magicnumber {
+    whitelistedUserIds = [
+      8675309
+      1234
+    ]
+    enabledProportion = 0.01
+    enabledCountries = ["Belgium", "Peru"]
+  }
+}
+```
 
 ## Moirai 1.0.1
 
@@ -36,7 +73,7 @@ val featureFlagChecker = ConfigFeatureFlagChecker.forReloadableResource(
 
 Using the `FeatureFlagChecker`:
 ```scala
-if (featureChecker.isFeatureEnabled("random.magicnumber", FeatureCheckInput.forUser(identity.upmId))) {
+if (featureChecker.isFeatureEnabled("random.magicnumber", FeatureCheckInput.forUser(auth.userId))) {
   "42" 
 } else {
   calculateRealNumber()
@@ -51,7 +88,7 @@ moirai {
       8675309
       1234
     ]
-   enabledProportion = 0.01
+    enabledProportion = 0.01
   }
 }
 ```

@@ -1,5 +1,7 @@
 package com.nike.moirai.config;
 
+import com.nike.moirai.FeatureCheckInput;
+
 import java.util.Collection;
 import java.util.function.Predicate;
 
@@ -10,12 +12,15 @@ import static com.nike.moirai.config.ConfigDeciders.userIdCheck;
  *
  * @param <T> the type of config
  */
-public abstract class EnabledUsersConfigDecider<T> implements Predicate<ConfigDecisionInput<T>> {
+public abstract class EnabledUsersConfigDecider<T> extends EnabledValuesConfigDecider<T, String> {
     @Override
-    public boolean test(ConfigDecisionInput<T> configDecisionInput) {
-        return userIdCheck(configDecisionInput.getFeatureCheckInput(), userId ->
-            enabledUsers(configDecisionInput.getConfig(), configDecisionInput.getFeatureIdentifier()).contains(userId)
-        );
+    protected boolean checkValue(FeatureCheckInput featureCheckInput, Predicate<String> check) {
+        return userIdCheck(featureCheckInput, check);
+    }
+
+    @Override
+    protected Collection<String> enabledValues(T config, String featureIdentifier) {
+        return enabledUsers(config, featureIdentifier);
     }
 
     /**

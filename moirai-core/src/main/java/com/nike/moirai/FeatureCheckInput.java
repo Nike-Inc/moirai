@@ -153,6 +153,15 @@ public class FeatureCheckInput {
     }
 
     /**
+     * @param dimensionKey   custom key identifying the input dimension
+     * @param dimensionValue custom value for the input dimension
+     * @return input with the additional dimension added
+     */
+    public FeatureCheckInput withAdditionalDimension(String dimensionKey, Object dimensionValue) {
+        return this.builder().dimension(dimensionKey, dimensionValue).build();
+    }
+
+    /**
      * @return the id of the user accessing the feature
      */
     public Optional<String> getUserId() {

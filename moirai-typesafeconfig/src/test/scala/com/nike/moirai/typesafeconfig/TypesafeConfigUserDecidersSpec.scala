@@ -55,6 +55,18 @@ class TypesafeConfigUserDecidersSpec extends FunSpec with Matchers {
         featureFlagChecker.isFeatureEnabled("baz", FeatureCheckInput.forUser("jack")) shouldBe false
       }
     }
+
+    describe("a feature present in the config with no configuration entries") {
+      it("should not be enabled for any users") {
+        featureFlagChecker.isFeatureEnabled("qux", FeatureCheckInput.forUser("42")) shouldBe false
+      }
+    }
+
+    describe("a feature not specified in the config") {
+      it("should not be enabled for any users") {
+        featureFlagChecker.isFeatureEnabled("quux", FeatureCheckInput.forUser("42")) shouldBe false
+      }
+    }
   }
 
   describe("A whitelisted-user config decider") {
@@ -71,6 +83,35 @@ class TypesafeConfigUserDecidersSpec extends FunSpec with Matchers {
 
     it("should be disabled for users not in the enabled list") {
       featureFlagChecker.isFeatureEnabled("foo", FeatureCheckInput.forUser("bill")) shouldBe false
+    }
+  }
+
+  describe("A custom dimension enabled valued config decider") {
+    val resourceLoader = FileResourceLoaders.forClasspathResource("moirai.conf")
+
+    val featureFlagChecker = ConfigFeatureFlagChecker.forConfigSupplier[Config](
+      Suppliers.supplierAndThen(resourceLoader, TypesafeConfigReader.FROM_STRING),
+      TypesafeConfigDecider.enabledCustomStringDimension("country", "enabledCountries")
+    )
+
+    it("should be enabled for a user in an enabled country") {
+      val input = FeatureCheckInput.forUser("bob").withAdditionalDimension("country", "Peru")
+      featureFlagChecker.isFeatureEnabled("qux", input) shouldBe true
+    }
+
+    it("should be disabled for a user not in an enabled country") {
+      val input = FeatureCheckInput.forUser("bob").withAdditionalDimension("country", "Belgium")
+      featureFlagChecker.isFeatureEnabled("qux", input) shouldBe false
+    }
+
+    it("should be disabled for a user not in a country") {
+      val input = FeatureCheckInput.forUser("bob")
+      featureFlagChecker.isFeatureEnabled("qux", input) shouldBe false
+    }
+
+    it("should be disabled for a user with an invalid value for country") {
+      val input = FeatureCheckInput.forUser("bob").withAdditionalDimension("country", 8)
+      featureFlagChecker.isFeatureEnabled("qux", input) shouldBe false
     }
   }
 }
