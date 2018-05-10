@@ -1,5 +1,9 @@
 # Moirai Release Notes
 
+## Moirai 1.1.0
+
+* Deprecate `WhitelistedUsersConfigDecider` and `TypesafeConfigDecider.WHITELISTED_USERS` in favor of new names: `EnabledUsersConfigDecider` and `TypesafeConfigDecider.ENABLED_USERS`
+
 ## Moirai 1.0.1
 
 * POM only challenges for publishing to Maven Central
