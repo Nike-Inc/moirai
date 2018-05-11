@@ -1,6 +1,7 @@
 package com.nike.moirai.typesafeconfig;
 
 import com.nike.moirai.config.ConfigDecisionInput;
+import com.nike.moirai.config.EnabledUsersConfigDecider;
 import com.nike.moirai.config.ProportionOfUsersConfigDecider;
 import com.nike.moirai.config.WhitelistedUsersConfigDecider;
 import com.typesafe.config.Config;
@@ -20,11 +21,33 @@ public class TypesafeConfigDecider {
      * If that config path does not exist, an empty list of users will be provided.
      *
      * @see WhitelistedUsersConfigDecider
+     * @deprecated use {@link #ENABLED_USERS} instead (you must change your config key from whitelistedUserIds to enabledUserIds)
      */
+    @Deprecated
     public static final Predicate<ConfigDecisionInput<Config>> WHITELISTED_USERS = new WhitelistedUsersConfigDecider<Config>() {
         @Override
         protected Collection<String> whitelistedUsers(Config config, String featureIdentifier) {
             String path = String.format("moirai.%s.whitelistedUserIds", featureIdentifier);
+
+            if (config.hasPath(path)) {
+                return config.getStringList(path);
+            }
+
+            return Collections.emptyList();
+        }
+    };
+
+    /**
+     * Reads the whitelist from the config at a path of "moirai.[featureIdentifier].enabledUserIds". For instance, for a
+     * feature identifier of "foo.service.myfeature", the config value "moirai.foo.service.myfeature.enabledUserIds" will be read.
+     * If that config path does not exist, an empty list of users will be provided.
+     *
+     * @see EnabledUsersConfigDecider
+     */
+    public static final Predicate<ConfigDecisionInput<Config>> ENABLED_USERS = new EnabledUsersConfigDecider<Config>() {
+        @Override
+        protected Collection<String> enabledUsers(Config config, String featureIdentifier) {
+            String path = String.format("moirai.%s.enabledUserIds", featureIdentifier);
 
             if (config.hasPath(path)) {
                 return config.getStringList(path);

@@ -8,10 +8,10 @@ import org.scalatest.{FunSpec, Matchers}
 
 import scala.collection.JavaConverters._
 
-class WhitelistedUsersConfigDeciderSpec extends FunSpec with Matchers with GeneratorDrivenPropertyChecks {
+class EnabledUsersConfigDeciderSpec extends FunSpec with Matchers with GeneratorDrivenPropertyChecks {
   describe("A basic implementation of WhitelistedUsersConfigDecider") {
-    val decider = new WhitelistedUsersConfigDecider[Map[String, Seq[String]]]() {
-      override protected def whitelistedUsers(config: Map[String, Seq[String]], featureIdentifier: String): util.Collection[String] =
+    val decider = new EnabledUsersConfigDecider[Map[String, Seq[String]]]() {
+      override protected def enabledUsers(config: Map[String, Seq[String]], featureIdentifier: String): util.Collection[String] =
         config.get(featureIdentifier).map(_.asJava).getOrElse(java.util.Collections.emptyList())
     }
 

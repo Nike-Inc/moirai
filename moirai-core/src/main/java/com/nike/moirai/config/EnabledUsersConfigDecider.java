@@ -9,13 +9,13 @@ import static com.nike.moirai.config.ConfigDeciders.userIdCheck;
  * Returns true for a configured list of users.
  *
  * @param <T> the type of config
- * @deprecated use {@link EnabledUsersConfigDecider} instead
  */
-@Deprecated
-public abstract class WhitelistedUsersConfigDecider<T> extends EnabledUsersConfigDecider<T> {
+public abstract class EnabledUsersConfigDecider<T> implements Predicate<ConfigDecisionInput<T>> {
     @Override
-    public final Collection<String> enabledUsers(T config, String featureIdentifier) {
-        return whitelistedUsers(config, featureIdentifier);
+    public boolean test(ConfigDecisionInput<T> configDecisionInput) {
+        return userIdCheck(configDecisionInput.getFeatureCheckInput(), userId ->
+            enabledUsers(configDecisionInput.getConfig(), configDecisionInput.getFeatureIdentifier()).contains(userId)
+        );
     }
 
     /**
@@ -25,5 +25,5 @@ public abstract class WhitelistedUsersConfigDecider<T> extends EnabledUsersConfi
      * @param featureIdentifier the feature
      * @return the collection of userIds that should be enabled for the feature
      */
-    protected abstract Collection<String> whitelistedUsers(T config, String featureIdentifier);
+    protected abstract Collection<String> enabledUsers(T config, String featureIdentifier);
 }
