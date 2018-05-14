@@ -41,7 +41,7 @@ class FeatureCheckInputSpec  extends FunSpec with Matchers {
   describe("withDimensions") {
     describe("with additional 'foo' dimension") {
       val now = java.time.Instant.now()
-      val featureCheckInput = FeatureCheckInput.forUser("8675309").withAdditionalDimensions(Map("foo" -> "bar").asJava)
+      val featureCheckInput = FeatureCheckInput.forUser("8675309").withAdditionalDimension("foo", "bar")
 
       it("should provide the user") {
         featureCheckInput.getUserId.get() shouldBe "8675309"
@@ -60,9 +60,34 @@ class FeatureCheckInputSpec  extends FunSpec with Matchers {
       }
     }
 
+    describe("with additional 'foo' and 'bar' dimensions") {
+      val now = java.time.Instant.now()
+      val featureCheckInput = FeatureCheckInput.forUser("8675309").withAdditionalDimensions(Map("foo" -> "foofoo", "bar" -> "barbar").asJava)
+
+      it("should provide the user") {
+        featureCheckInput.getUserId.get() shouldBe "8675309"
+      }
+
+      it("should provide the current time") {
+        featureCheckInput.getDateTime.get().toEpochMilli should be >= now.toEpochMilli
+      }
+
+      it("should provide the value for 'foo'") {
+        featureCheckInput.getDimension("foo").get() shouldBe "foofoo"
+      }
+
+      it("should provide the value for 'bar'") {
+        featureCheckInput.getDimension("bar").get() shouldBe "barbar"
+      }
+
+      it("should return empty for a custom dimension not specified") {
+        featureCheckInput.getDimension("baz").isPresent shouldBe false
+      }
+    }
+
     describe("with conflicting dimension") {
       it("should error on attempt to add custom dimension that already exists") {
-        an [IllegalArgumentException] should be thrownBy FeatureCheckInput.forUser("foo").withAdditionalDimensions(Map("USER_ID" -> "bar").asJava)
+        an [IllegalArgumentException] should be thrownBy FeatureCheckInput.forUser("foo").withAdditionalDimensions(Map("USER_ID" -> "bar", "foo" -> "baz").asJava)
       }
     }
   }
