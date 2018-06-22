@@ -1,5 +1,10 @@
 # Moirai Release Notes
 
+## Moirai 1.2.0
+
+* Adds the `CachingS3ResourceLoader`, which is intended as a drop-in replacement for `S3ResourceLoader` but is aware
+of ETags. This is to allow more frequent polling of the S3 Object without reading the whole object each time.
+
 ## Moirai 1.1.0
 
 * Deprecated `WhitelistedUsersConfigDecider` and `TypesafeConfigDecider.WHITELISTED_USERS` in favor of new names: `EnabledUsersConfigDecider` and `TypesafeConfigDecider.ENABLED_USERS`
