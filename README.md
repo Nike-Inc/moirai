@@ -45,7 +45,7 @@ public class Usage {
 
     FeatureFlagChecker featureFlagChecker = ConfigFeatureFlagChecker.forReloadableResource(
         resourceReloader,
-        TypesafeConfigDecider.WHITELISTED_USERS.or(TypesafeConfigDecider.PROPORTION_OF_USERS)
+        TypesafeConfigDecider.ENABLED_USERS.or(TypesafeConfigDecider.PROPORTION_OF_USERS)
     );
     
     public int getNumber(String userIdentity) {
@@ -67,7 +67,7 @@ Example config file:
 ```
 moirai {
   random.calculatenumber {
-    whitelistedUserIds = [
+    enabledUserIds = [
       8675309
       1234
     ]
