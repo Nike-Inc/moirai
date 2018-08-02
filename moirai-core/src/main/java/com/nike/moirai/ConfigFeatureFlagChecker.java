@@ -51,4 +51,10 @@ public class ConfigFeatureFlagChecker<C> implements FeatureFlagChecker {
     public boolean isFeatureEnabled(String featureIdentifier, FeatureCheckInput featureCheckInput) {
         return this.configDecider.test(new ConfigDecisionInput<>(this.configSupplier.get(), featureIdentifier, featureCheckInput));
     }
+
+    @Override
+    public boolean isFeatureEnabled(String featureIdentifier) {
+        return this.configDecider.test(new ConfigDecisionInput<>(this.configSupplier.get(), featureIdentifier, FeatureCheckInput.empty()));
+    }
+
 }

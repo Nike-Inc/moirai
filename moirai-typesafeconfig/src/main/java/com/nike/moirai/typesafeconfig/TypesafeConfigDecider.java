@@ -1,14 +1,14 @@
 package com.nike.moirai.typesafeconfig;
 
 import com.nike.moirai.config.ConfigDecisionInput;
-import com.nike.moirai.config.EnabledCustomDimensionConfigDecider;
 import com.nike.moirai.config.EnabledUsersConfigDecider;
 import com.nike.moirai.config.ProportionOfUsersConfigDecider;
 import com.nike.moirai.config.WhitelistedUsersConfigDecider;
+import com.nike.moirai.config.EnabledCustomDimensionConfigDecider;
+import com.nike.moirai.config.FeatureEnabledConfigDecider;
 import com.typesafe.config.Config;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -62,6 +62,21 @@ public class TypesafeConfigDecider {
         protected Optional<Double> enabledProportion(Config config, String featureIdentifier) {
             String path = String.format("moirai.%s.enabledProportion", featureIdentifier);
             return TypesafeConfigExtractor.extractOptional(config, path, Config::getDouble);
+        }
+    };
+
+    /**
+     * Reads the boolean value from the config at a path of "moirai.[featureIdentifier].featureEnabled". For instance, for a
+     * feature identifier of "foo.service.myfeature", the config value "moirai.foo.service.myfeature.featureEnabled" will be read. If that config
+     * path does not exist, {@link Optional#empty()} will be provided.
+     *
+     * @see FeatureEnabledConfigDecider
+     */
+    public static final Predicate<ConfigDecisionInput<Config>> FEATURE_ENABLED = new FeatureEnabledConfigDecider<Config>() {
+        @Override
+        protected Optional<Boolean> featureEnabled(Config config, String featureIdentifier) {
+            String path = String.format("moirai.%s.featureEnabled", featureIdentifier);
+            return TypesafeConfigExtractor.extractOptional(config, path, Config::getBoolean);
         }
     };
 

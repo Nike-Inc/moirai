@@ -107,6 +107,8 @@ Two methods of support for making a feature flag decision based on the userId in
 * `WhitelistedUsersConfigDecider` takes a concrete list of user identifiers from some config source and checks if it contains the input user
 * `ProportionOfUsersConfigDecider` uses the `hashCode` of the input userId against a ratio provided by some config source. For example, if the config source provides a value of 0.9 for the feature identifier, then approximately 90% of the users will get the feature enabled from this decider. 
 
+Another method for making a feature flag decision based on a boolean value in the configuration: `FeatureEnabledConfigDecider`. This decider does not take any input.
+
 ### ConfigFeatureFlagChecker
 
 `ConfigFeatureFlagChecker` is where you put it all together. Given either a `ResourceReloader` or just a `Supplier` and a corresponding `Predicate`, it provides a `FeatureFlagChecker`.

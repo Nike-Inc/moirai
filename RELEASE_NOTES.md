@@ -1,5 +1,9 @@
 # Moirai Release Notes
 
+## Moirai 1.3.0
+
+* Adds `FeatureEnabledConfigDecider`, which is a decider that takes boolean value from the configuration and does not need input.
+
 ## Moirai 1.2.0
 
 * Adds the `CachingS3ResourceLoader`, which is intended as a drop-in replacement for `S3ResourceLoader` but is aware

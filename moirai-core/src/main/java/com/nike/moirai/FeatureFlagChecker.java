@@ -12,4 +12,12 @@ public interface FeatureFlagChecker {
      * @return whether the feature should be enabled
      */
     boolean isFeatureEnabled(String featureIdentifier, FeatureCheckInput featureCheckInput);
+
+    /**
+     * Checks if the feature should be enabled
+     *
+     * @param featureIdentifier the identifier of the feature to check on
+     * @return whether the feature should be enabled
+     */
+    boolean isFeatureEnabled(String featureIdentifier);
 }

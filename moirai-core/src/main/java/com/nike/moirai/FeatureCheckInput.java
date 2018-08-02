@@ -122,6 +122,15 @@ public class FeatureCheckInput {
     }
 
     /**
+     * Create an empty input for a feature check of the given feature.
+     *
+     * @return a new FeatureCheckInput
+     */
+    public static FeatureCheckInput empty() {
+        return new Builder().build();
+    }
+
+    /**
      * Create input for a feature check of the given user at the current time.
      * Sets the dateTime dimension to now.
      *
