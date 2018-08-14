@@ -53,7 +53,7 @@ lazy val moirai = (project in file("."))
         clazz = 90)
     )
   )
-  .aggregate(`moirai-core`, `moirai-s3`, `moirai-typesafeconfig`)
+  .aggregate(`moirai-core`, `moirai-s3`, `moirai-typesafeconfig`, `moirai-riposte-example`)
 
 lazy val `moirai-core` = project
   .settings(commonSettings)
@@ -89,4 +89,27 @@ lazy val `moirai-typesafeconfig` = project
       typesafeConfig,
       scalaTest
     )
+  )
+
+lazy val `moirai-riposte-example` = project
+  .dependsOn(`moirai-core`, `moirai-typesafeconfig`)
+  .settings(commonSettings)
+  .settings(
+    description := "Moirai usage example using Riposte",
+    libraryDependencies ++= Seq(
+      riposte,
+      riposteTypesafeConfig,
+      riposteCore,
+      riposteAsyncClient,
+      googleFindbugsJsr305Version,
+      elApi,
+      elImpl,
+      junit,
+      assertJ,
+      mockito,
+      junitInterface,
+      backstopper,
+      logback),
+    testOptions += Tests.Argument(TestFrameworks.JUnit, "+q", "+n", "+v")
+
   )

@@ -2,7 +2,6 @@ package com.nike.moirai.config;
 
 import com.nike.moirai.FeatureCheckInput;
 
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**

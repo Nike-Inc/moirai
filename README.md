@@ -81,6 +81,7 @@ moirai {
 * `moirai-core` provides base functionality and abstractions with no additional dependencies beyond the JDK
 * `moirai-s3` provides a convenient `Supplier` for loading a text file from Amazon S3
 * `moirai-typesafeconfig` provides both a utility to read a String as a Typesafe `Config` and `Predicate` implementations based on a convention for representing feature-flag settings as a `Config`.
+* `moirai-riposte-example` provides an example of how one would go about using riposte to use the moirai's `ConfigFeatureFlagChecker`
 
 ## Components
 

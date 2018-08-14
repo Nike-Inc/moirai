@@ -1,0 +1,402 @@
+[
+  {
+    "product": {
+      "name": "Nike LunarGlide 8 Women's Running Shoe - Purple Earth",
+      "id": "4356reertert"
+    },
+    "nick_name": "Raj t dt",
+    "color": "Purple Earth/Dark Raisin/Volt/Purple Dynasty",
+    "brand": "Nike",
+    "target_distance_km": 965.6064,
+    "model": "Nike LunarGlide 8",
+    "language": "en"
+  },
+  {
+    "product": {
+      "id": "fe3c9e90-2c00-5ef1-97cc-ad348eaf77cd",
+      "name": "Nike Free RN 2018 International Women's Day Women's Running Shoe - Moon Particle"
+    },
+    "nick_name": "Shoe after promoting new stack",
+    "brand": "Nike",
+    "model": "Nike Free RN 2018 International Women's Day"
+  },
+  {
+    "product": {
+      "id": "064989c5-11c5-5ff5-9f21-62812e1487e0",
+      "name": "Nike Legend React Women's Running Shoe - Wolf Grey"
+    },
+    "nick_name": "Shoe after canary - updating",
+    "brand": "Nike",
+    "model": "Nike Legend React"
+  },
+  {
+    "product": {
+      "id": "7fe1f952-5793-5ca3-ab2e-18f71b709392",
+      "name": "Nike Flex 2017 RN Women's Running Shoe - Sunset Pulse"
+    },
+    "nick_name": "Nike Flex 2017 RN Women's Running Shoe - Sunset Pulse",
+    "brand": "Nike",
+    "model": "Nike Flex 2017 RN"
+  },
+  {
+    "product": {
+      "id": "71c51699-4bba-588f-8402-3e8dd1148ddc",
+      "name": "Nike Air Zoom Terra Kiger 4 Women's Running Shoe - Cool Grey"
+    },
+    "nick_name": "Nike Air Zoom Terra Kiger 4 Women's Running Shoe - Cool Grey",
+    "brand": "Nike",
+    "model": "Nike Air Zoom Terra Kiger 4"
+  },
+  {
+    "nick_name": "nike airmax+2012"
+  },
+  {
+    "product": {
+      "id": "d61d369e-b312-539c-9a13-926092764e68",
+      "name": "Nike Air Zoom Vomero Women's Running Shoe"
+    },
+    "nick_name": "Nike Air Zoom Vomero Women's Running Shoe",
+    "brand": "Nike",
+    "model": "Nike Air Zoom Vomero 11"
+  },
+  {
+    "product": {
+      "id": "78b7326a-acc0-51ea-8f96-5e875a1a463b",
+      "name": "Nike Zoom Flyknit Streak Unisex Running Shoe - Volt"
+    },
+    "nick_name": "Nike volt shoe",
+    "brand": "Nike",
+    "model": "Nike Zoom Flyknit Streak"
+  },
+  {
+    "product": {
+      "id": "0b91480a-34b9-5267-bfc4-ce55e428933a",
+      "name": "Nike Free RN Big Kids' Running Shoe - Aluminum"
+    },
+    "nick_name": "Nike Free RN Big Kids' Running Shoe - Aluminum",
+    "brand": "Nike",
+    "model": "Nike Free RN"
+  },
+  {
+    "nick_name": "12 dollar most comfy Nike shoes"
+  },
+  {
+    "product": {
+      "id": "0102c889-8dd5-5b8d-a55c-90db004a634f"
+    },
+    "nick_name": "Lunarepic  test nickname",
+    "brand": "Nike",
+    "model": "Nike LunarEpic Flyknit Shield",
+    "language": "en",
+    "marketplace": "US"
+  },
+  {
+    "product": {
+      "id": "5f62da45-7147-5d0e-9c46-0361ce640dbf"
+    },
+    "nick_name": "Lunar. Glide",
+    "brand": "Nike",
+    "target_distance_km": 321.8688,
+    "model": "Nike LunarGlide 8",
+    "language": "en",
+    "marketplace": "US"
+  },
+  {
+    "id": "a3b81616-e3a4-4501-b8a5-7d810af20935",
+    "product": {
+      "id": "e4dd30b9-175b-53ca-afa7-b049104d3608",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/806584_009?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/806584_009?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/806584_009?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "806584"
+    },
+    "nick_name": "New nickname. For Nike. Structure",
+    "brand": "Nike",
+    "target_distance_km": 563.2704,
+    "model": "Nike Air Zoom Structure 19",
+    "language": "en",
+    "marketplace": "US",
+    "creation_time_ms": 1533183837515,
+    "last_modified_ms": 1533183837515
+  },
+  {
+    "id": "dc3658d3-a122-4e04-8f61-df444e362170",
+    "product": {
+      "id": "849e4c0c-e5cd-54d5-a5a1-d0b0e32ba2e5",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/806584_100?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/806584_100?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/806584_100?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "806584"
+    },
+    "nick_name": "Nike air zoom. Structure 19  test",
+    "brand": "Nike",
+    "target_distance_km": 563.2704,
+    "model": "Nike Air Zoom Structure 19",
+    "language": "en",
+    "marketplace": "US",
+    "creation_time_ms": 1533183497091,
+    "last_modified_ms": 1533183497091
+  },
+  {
+    "id": "5ea7a482-78ab-43d8-be81-37dbfda10a64",
+    "product": {
+      "id": "ef43b4ce-3dbf-5c24-af03-ec63ddf8606e",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/806584_005?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/806584_005?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/806584_005?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "806584"
+    },
+    "nick_name": "Some",
+    "brand": "Nike",
+    "target_distance_km": 563.2704,
+    "model": "Nike Air Zoom Structure 19",
+    "language": "en",
+    "marketplace": "US",
+    "creation_time_ms": 1533183443621,
+    "last_modified_ms": 1533183443621
+  },
+  {
+    "id": "71673fcc-e784-4803-a138-58c3eba8d6bd",
+    "product": {
+      "id": "ebb6079b-e9f3-5bc0-aeb6-44a3f3a76acb",
+      "name": "Nike Air Max Sequent 2 Women's Running Shoe - Taupe Grey",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/852465_200?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/852465_200?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/852465_200?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "852465"
+    },
+    "nick_name": "Testing edit for Nike air max  with Dev build",
+    "color": "Taupe Grey/Plum Fog/Iced Lilac/Port Wine",
+    "brand": "Nike",
+    "target_distance_km": 563.2704,
+    "model": "Nike Air Max Sequent 2",
+    "creation_time_ms": 1495323304954,
+    "last_modified_ms": 1533166545280,
+    "previous_nicknames": [
+      "Testing edit for Nike air max",
+      "Nike Air Max Sequent 2 Women's Running Shoe - Wolf Grey"
+    ]
+  },
+  {
+    "id": "5f9fb57f-fde9-4e68-a5cb-057080bae764",
+    "product": {
+      "id": "afa47212-d551-51dd-a279-0a2ca6511e9d",
+      "name": "Nike Air Zoom Wildhorse 4 Women's Running Shoe - Deep Jungle",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/880566_301?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/880566_301?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/880566_301?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "880566"
+    },
+    "nick_name": "Test Dev build",
+    "color": "Deep Jungle/Ocean Bliss/Armory Navy/Crimson Pulse",
+    "brand": "Nike",
+    "target_distance_km": 563.2704,
+    "model": "Nike Air Zoom Wildhorse 4",
+    "creation_time_ms": 1532574359182,
+    "last_modified_ms": 1533166416031,
+    "previous_nicknames": [
+      "Testing"
+    ]
+  },
+  {
+    "id": "a3f87900-7e2d-4d72-a890-b46c433fa88b",
+    "product": {
+      "id": "fee2e943-2b78-5238-a25f-2c7a341e1535",
+      "name": "Nike Air Zoom Elite 9 Women's Running Shoe - Aluminum",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/863770_400?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/863770_400?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/863770_400?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "863770"
+    },
+    "nick_name": "Nike Air Zoom Elite 9 Women's Running Shoe - Aluminum",
+    "brand": "Nike",
+    "model": "Nike Air Zoom Elite 9",
+    "creation_time_ms": 1532499669008,
+    "last_modified_ms": 1532499669008
+  },
+  {
+    "id": "16a1ce7d-e3e1-4f88-a876-0ff1d615dac9",
+    "product": {
+      "id": "3abd2ea0-2e36-5cd1-807b-532c7ad53db2",
+      "name": "Nike Air Zoom Elite Women's Running Shoe",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/748589_001?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/748589_001?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/748589_001?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "748589"
+    },
+    "nick_name": "Functional-Test-edaf8875-a2c0-4514-a7dc-3f5",
+    "brand": "Nike",
+    "model": "Nike Air Zoom Elite 8",
+    "language": "en",
+    "marketplace": "US",
+    "creation_time_ms": 1532459239292,
+    "last_modified_ms": 1532459439292
+  },
+  {
+    "id": "b4050eb3-a194-42d4-b342-5c5d75b29db4",
+    "product": {
+      "id": "38ccb72a-1220-5f4c-831f-96585ea32217",
+      "name": "Nike Epic React Flyknit Men's Running Shoe - Wolf Grey",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/AQ0067_008?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/AQ0067_008?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/AQ0067_008?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "AQ0067"
+    },
+    "nick_name": "testing_epic_react",
+    "brand": "Nike",
+    "model": "Nike Epic React Flyknit",
+    "language": "en",
+    "marketplace": "US",
+    "creation_time_ms": 1532459239292,
+    "last_modified_ms": 1532459439292
+  },
+  {
+    "id": "62b4eead-5260-480b-a0f5-ca2fc60d79c1",
+    "product": {
+      "id": "3abd2ea0-2e36-5cd1-807b-532c7ad53db2",
+      "name": "Nike Air Zoom Elite Women's Running Shoe",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/748589_001?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/748589_001?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/748589_001?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "748589"
+    },
+    "nick_name": "Functional-Test-edaf8875-a2c0-4514-a7dc-3f5c1cd11fb4",
+    "brand": "Nike",
+    "model": "Nike Air Zoom Elite 8",
+    "language": "en",
+    "marketplace": "US",
+    "creation_time_ms": 1532459239292,
+    "last_modified_ms": 1532459439292
+  },
+  {
+    "id": "4c5fc25b-7bcd-4622-966b-61f8e3b969d2",
+    "product": {
+      "id": "2011544f-a237-5ddd-8214-8de4252187a9",
+      "name": "Nike Air Zoom Pegasus 35 iD Women's Running Shoe - Multi-Color",
+      "images": {
+        "primary": "http://images.nike.com/is/image/DotCom/NIKE_API/Nike-Air-Zoom-Pegasus-35-iD-Womens-Running-Shoe-AQ2791_992.png?wid=1440&fmt=png-alpha",
+        "thumbnail": "http://images.nike.com/is/image/DotCom/NIKE_API/Nike-Air-Zoom-Pegasus-35-iD-Womens-Running-Shoe-AQ2791_992.png?$OMEGA_PRODUCT$",
+        "secondary": "http://images.nike.com/is/image/DotCom/NIKE_API/Nike-Air-Zoom-Pegasus-35-iD-Womens-Running-Shoe-AQ2791_992.png?wid=1440&fmt=png-alpha"
+      }
+    },
+    "nick_name": "Nike Air Zoom Pegasus 35 iD Women's Running Shoe - Multi-Color",
+    "brand": "Nike",
+    "creation_time_ms": 1531313456271,
+    "last_modified_ms": 1531313456271
+  },
+  {
+    "id": "4edd5ae9-ffb6-4329-b756-c5e25e2f2ace",
+    "product": {
+      "id": "bc49834a-23cd-5f22-aeeb-2726b54d5dee",
+      "name": "Nike LunarSolo Women's Running Shoe - Dark Grey",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/AA4080_012?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/AA4080_012?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/AA4080_012?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "AA4080"
+    },
+    "nick_name": "My shoe test lunarsolo",
+    "brand": "Nike",
+    "model": "Nike LunarSolo",
+    "creation_time_ms": 1529966925210,
+    "last_modified_ms": 1529966925210
+  },
+  {
+    "id": "aafda69e-70db-4819-9779-5f1ced96b461",
+    "product": {
+      "id": "b04271ee-200d-54b8-841d-972391172754",
+      "name": "Nike Air Zoom Structure 20 Women's Running Shoe - Wolf Grey",
+      "images": {
+        "primary": "https://secure-images.nike.com/is/image/DotCom/849577_006?wid=1440&fmt=png-alpha",
+        "thumbnail": "https://secure-images.nike.com/is/image/DotCom/849577_006?$OMEGA_PRODUCT$",
+        "secondary": "https://secure-images.nike.com/is/image/DotCom/849577_006?wid=1440&fmt=png-alpha"
+      },
+      "style_code": "849577"
+    },
+    "nick_name": "My new shoe",
+    "brand": "Nike",
+    "model": "Nike Air Zoom Structure 20",
+    "creation_time_ms": 1521133782580,
+    "last_modified_ms": 1521133782580
+  },
+  {
+    "product": {
+      "id": "e8001bfd-a9c8-5d54-bbd3-c3abcb8b1faa",
+      "name": "Nike Flyknit Air Max Women's Running Shoe - Hot Punch"
+    },
+    "nick_name": "Nike Flyknit Air Max Women's Running Shoe - Hot Punch",
+    "brand": "Nike",
+    "model": "Nike Flyknit Air Max"
+  },
+  {
+    "product": {
+      "id": "4d1eda09-acc8-5922-881d-e3ccd2cf6aeb",
+      "name": "Nike Air Zoom Pegasus 33 Big Kids' Running Shoe (1y-7y) - Aluminum"
+    },
+    "nick_name": "Nike Air Zoom Pegasus 33 Big Kids' Running Shoe (1y-7y) - Aluminum",
+    "brand": "Nike",
+    "model": "Nike Air Zoom Pegasus 33"
+  },
+  {
+    "id": "232671e4-eef4-4a29-b8b6-6417fd4effa0",
+    "nick_name": "😂😭😭😩😒😒",
+    "creation_time_ms": 1498172239084,
+    "last_modified_ms": 1498172239084
+  },
+  {
+    "product": {
+      "id": "5aa8ac24-ef63-5a10-83f3-0338c4aa55c0",
+      "name": "Nike Free RN Women's Running Shoe - White"
+    },
+    "nick_name": "From",
+    "brand": "Nike",
+    "model": "Nike Free RN"
+  },
+  {
+    "product": {
+      "id": "d61d369e-b312-539c-9a13-926092764e68",
+      "name": "Nike Air Zoom Vomero Women's Running Shoe"
+    },
+    "nick_name": "My new product nickname",
+    "brand": "Nike",
+    "model": "Nike Air Zoom Vomero 11"
+  },
+  {
+    "id": "ca9eca57-cf2a-4f74-9a32-fb8feab88165",
+    "nick_name": "My new orange shoes"
+  },
+  {
+    "id": "128ee5a1-f834-4765-bdae-ba37e37f6ab9",
+    "nick_name": "nike air max"
+  },
+  {
+    "id": "7e3d42ca-bcde-408a-9271-2785f3b6932a",
+    "nick_name": "nike air zoom elite"
+  },
+  {
+    "id": "f8c5d0c3-0705-4947-9820-f6787c0e4aab",
+    "nick_name": "Not really",
+    "previous_nicknames": [
+      "Nike Free RN Motion Flyknit 2017 Women's Running Shoe - Wolf Grey"
+    ]
+  }
+]
