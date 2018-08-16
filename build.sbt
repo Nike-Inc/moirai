@@ -35,7 +35,7 @@ lazy val commonSettings = Seq(
 lazy val moirai = (project in file("."))
   .settings(commonSettings)
   .settings(
-    publishArtifact := false,
+    skip in publish := true,
     // Replace tasks to work around https://github.com/sbt/sbt-bintray/issues/93
     bintrayRelease := (),
     bintrayEnsureBintrayPackageExists := (),
@@ -96,6 +96,7 @@ lazy val `moirai-riposte-example` = project
   .settings(commonSettings)
   .settings(
     description := "Moirai usage example using Riposte",
+	skip in publish := true,
     libraryDependencies ++= Seq(
       riposte,
       riposteTypesafeConfig,
