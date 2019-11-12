@@ -1,5 +1,9 @@
 # Moirai Release Notes
 
+## Moirai 1.3.1
+
+* Use `getResourceAsStream` to read classpath resources so they can be resolved from jar files properly
+
 ## Moirai 1.3.0
 
 * Adds `FeatureEnabledConfigDecider`, which is a decider that takes boolean value from the configuration and does not need input.

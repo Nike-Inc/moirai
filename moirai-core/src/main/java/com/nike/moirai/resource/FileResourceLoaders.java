@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -24,7 +22,7 @@ public class FileResourceLoaders {
      * @return a supplier that will read the resource into a string when called
      */
     public static Supplier<String> forClasspathResource(String path) {
-        return forFile(classpathFile(path));
+        return () -> loadResourceBlocking(classpathFileStream(path), "classpath://" + path);
     }
 
     /**
@@ -34,31 +32,35 @@ public class FileResourceLoaders {
      * @return a supplier that will read the file into a string when called
      */
     public static Supplier<String> forFile(File file) {
-        return () -> loadResourceBlocking(file);
+        return () -> loadResourceBlocking(fileStream(file), "file://" + file.getAbsolutePath());
     }
 
-    private static File classpathFile(String path) {
+    private static InputStream fileStream(File file) {
         try {
-            URL url = Thread.currentThread().getContextClassLoader().getResource(path);
-            if (url != null) {
-                return new File(url.toURI());
-            } else {
-                throw new RuntimeException("Could not find resource from classpath://" + path);
-            }
-        } catch (URISyntaxException e) {
-            throw new RuntimeException("Error loading resource from classpath://" + path, e);
+            return new FileInputStream(file);
+        } catch(IOException e) {
+            throw new RuntimeException("Error loading resource from file: " + file, e);
         }
     }
 
-    private static String loadResourceBlocking(File file) {
+    private static InputStream classpathFileStream(String path) {
+        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+
+        if (stream == null) {
+            throw new RuntimeException("Error loading resource from classpath://" + path);
+        }
+
+        return stream;
+    }
+
+    private static String loadResourceBlocking(InputStream in, String path) {
         try (
-            InputStream in = new FileInputStream(file);
             InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr)) {
 
             return br.lines().collect(Collectors.joining(System.lineSeparator()));
         } catch (IOException | UncheckedIOException e) {
-            throw new RuntimeException("Error loading resource from file: " + file, e);
+            throw new RuntimeException("Error loading resource from: " + path, e);
         }
     }
 

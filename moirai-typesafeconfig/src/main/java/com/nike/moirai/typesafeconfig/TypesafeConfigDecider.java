@@ -118,6 +118,7 @@ public class TypesafeConfigDecider {
      * Your custom dimension values must be strings. If the values are not strings, then the predicate will return false and log a warning message.
      *
      * @param dimensionKey the key used for the dimension; this should match how you construct your FeatureCheckInput
+     * @param configKey the key used for the configuration value to be read
      * @return a Predicate that will return true if the FeatureCheckInput has a value for your custom dimension that matches the values read from the Config
      */
     public static Predicate<ConfigDecisionInput<Config>> enabledCustomStringDimension(String dimensionKey, String configKey) {
