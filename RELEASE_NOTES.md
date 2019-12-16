@@ -5,6 +5,7 @@
 * When using a `ProportionOfUsersConfigDecider`, the hash will be based on the feature identifier and userId instead of just the userId.
   * This makes sure that different features don't always target the same set of users.
   * This will change which users are selected for a feature, so you should probably not update Moirai while you have a feature with only a partial proportion enabled.
+* Removed deprecated `WhitelistedUsersConfigDecider` and corresponding `WHITELISTED_USERS`.
 
 ## Moirai 1.3.1
 

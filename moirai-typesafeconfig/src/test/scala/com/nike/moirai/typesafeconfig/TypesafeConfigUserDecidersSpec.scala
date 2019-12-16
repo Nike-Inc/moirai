@@ -69,23 +69,6 @@ class TypesafeConfigUserDecidersSpec extends FunSpec with Matchers {
     }
   }
 
-  describe("A whitelisted-user config decider") {
-    val resourceLoader = FileResourceLoaders.forClasspathResource("moirai-whitelisted.conf")
-
-    val featureFlagChecker = ConfigFeatureFlagChecker.forConfigSupplier[Config](
-      Suppliers.supplierAndThen(resourceLoader, TypesafeConfigReader.FROM_STRING),
-      TypesafeConfigDecider.WHITELISTED_USERS
-    )
-
-    it("should be enabled for enabled user") {
-      featureFlagChecker.isFeatureEnabled("foo", FeatureCheckInput.forUser("susan")) shouldBe true
-    }
-
-    it("should be disabled for users not in the enabled list") {
-      featureFlagChecker.isFeatureEnabled("foo", FeatureCheckInput.forUser("bill")) shouldBe false
-    }
-  }
-
   describe("A featureEnabled config decider") {
     val resourceLoader = FileResourceLoaders.forClasspathResource("moirai.conf")
 

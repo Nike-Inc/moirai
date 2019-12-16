@@ -3,7 +3,6 @@ package com.nike.moirai.typesafeconfig;
 import com.nike.moirai.config.ConfigDecisionInput;
 import com.nike.moirai.config.EnabledUsersConfigDecider;
 import com.nike.moirai.config.ProportionOfUsersConfigDecider;
-import com.nike.moirai.config.WhitelistedUsersConfigDecider;
 import com.nike.moirai.config.EnabledCustomDimensionConfigDecider;
 import com.nike.moirai.config.FeatureEnabledConfigDecider;
 import com.typesafe.config.Config;
@@ -18,22 +17,6 @@ import java.util.stream.Collectors;
  * Predicate implementations that read from a Typesafe {@link Config}.
  */
 public class TypesafeConfigDecider {
-    /**
-     * Reads the whitelist from the config at a path of "moirai.[featureIdentifier].whitelistedUserIds". For instance, for a
-     * feature identifier of "foo.service.myfeature", the config value "moirai.foo.service.myfeature.whitelistedUserIds" will be read.
-     * If that config path does not exist, an empty list of users will be provided.
-     *
-     * @see WhitelistedUsersConfigDecider
-     * @deprecated use {@link #ENABLED_USERS} instead (you must change your config key from whitelistedUserIds to enabledUserIds)
-     */
-    @Deprecated
-    public static final Predicate<ConfigDecisionInput<Config>> WHITELISTED_USERS = new WhitelistedUsersConfigDecider<Config>() {
-        @Override
-        protected Collection<String> whitelistedUsers(Config config, String featureIdentifier) {
-            String path = String.format("moirai.%s.whitelistedUserIds", featureIdentifier);
-            return TypesafeConfigExtractor.extractCollection(config, path, Config::getStringList);
-        }
-    };
 
     /**
      * Reads the enabled list from the config at a path of "moirai.[featureIdentifier].enabledUserIds". For instance, for a
