@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import static com.nike.moirai.config.ConfigDeciders.userIdCheck;
 
 /**
- * Returns true for a configured proportion of users. The proportion is based on the hashCode() of the userId, so a consistent answer will
- * be returned for each userId. Returns false if no proportion configuration is provided for the feature identifier.
+ * Returns true for a configured proportion of users. The proportion is based on the hashCode() of the userId concatenated with the featureIdentifier,
+ * so a consistent answer will be returned for each userId for a feature. Returns false if no proportion configuration is provided for the feature identifier.
  *
  * @param <T> the type of config
  */
@@ -16,13 +16,13 @@ public abstract class ProportionOfUsersConfigDecider<T> implements Predicate<Con
     public boolean test(ConfigDecisionInput<T> configDecisionInput) {
         return userIdCheck(configDecisionInput.getFeatureCheckInput(), userId ->
             enabledProportion(configDecisionInput.getConfig(), configDecisionInput.getFeatureIdentifier()).map(enabledProportion ->
-                userHashEnabled(userId, enabledProportion)
+                userHashEnabled(userId, configDecisionInput.getFeatureIdentifier(), enabledProportion)
             ).orElse(false)
         );
     }
 
-    private boolean userHashEnabled(String userId, double proportion) {
-        return (Math.abs(userId.hashCode()) % 100) / 100.0 < proportion;
+    private boolean userHashEnabled(String userId, String featureIdentifier, double proportion) {
+        return (Math.abs((userId + featureIdentifier).hashCode()) % 100) / 100.0 < proportion;
     }
 
     /**
