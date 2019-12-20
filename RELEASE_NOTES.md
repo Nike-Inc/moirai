@@ -6,6 +6,7 @@
   * This makes sure that different features don't always target the same set of users.
   * This will change which users are selected for a feature, so you should probably not update Moirai while you have a feature with only a partial proportion enabled.
 * Removed deprecated `WhitelistedUsersConfigDecider` and corresponding `WHITELISTED_USERS`.
+* Migrated `moirai-s3` to [AWS Java SDK V2](https://github.com/aws/aws-sdk-java-v2). You will need to create a S3Client using the SDK, which in turn will require you to depend on a synchronous SDK implementation such as `url-connection-client` or `apache-client`
 
 ## Moirai 1.3.1
 

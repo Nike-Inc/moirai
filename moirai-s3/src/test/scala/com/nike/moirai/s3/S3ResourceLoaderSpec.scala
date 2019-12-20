@@ -1,16 +1,14 @@
 package com.nike.moirai.s3
 
-import java.io.ByteArrayInputStream
-
-import com.amazonaws.services.s3.AmazonS3
-import com.amazonaws.services.s3.model.{S3Object, S3ObjectInputStream}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{FunSpec, Matchers}
+import software.amazon.awssdk.core.ResponseBytes
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.model.{GetObjectRequest, GetObjectResponse}
 
 class S3ResourceLoaderSpec  extends FunSpec with Matchers with MockFactory {
   describe("S3ResourceLoader") {
-    val s3Client = mock[AmazonS3]
-    val s3Object = mock[S3Object]
+    val s3Client = mock[S3Client]
 
     val s3ResourceLoader = S3ResourceLoader.withS3Client(s3Client, "foo.bar.com", "folder/file.txt")
 
@@ -22,8 +20,14 @@ class S3ResourceLoaderSpec  extends FunSpec with Matchers with MockFactory {
       """.stripMargin
 
     it("should read the file from the S3 client") {
-      (s3Client.getObject(_: String, _: String)).expects("foo.bar.com", "folder/file.txt").returning(s3Object)
-      (s3Object.getObjectContent _).expects().returning(new S3ObjectInputStream(new ByteArrayInputStream(content.getBytes), null, false))
+      (s3Client.getObjectAsBytes(_: GetObjectRequest))
+        .expects(
+          GetObjectRequest
+            .builder()
+            .bucket("foo.bar.com")
+            .key("folder/file.txt")
+            .build())
+        .returning(ResponseBytes.fromByteArray(GetObjectResponse.builder().build(), content.getBytes("UTF-8")))
 
 
       s3ResourceLoader.get() shouldBe content

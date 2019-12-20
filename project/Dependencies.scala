@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
   val logbackVersion = "1.2.3"
   lazy val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.25"
-  lazy val awsS3 = "com.amazonaws" % "aws-java-sdk-s3" % "1.11.289"
+  lazy val awsS3 = "software.amazon.awssdk" % "s3" % "2.10.36"
   lazy val typesafeConfig =  "com.typesafe" % "config" % "1.3.3"
 
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5" % Test

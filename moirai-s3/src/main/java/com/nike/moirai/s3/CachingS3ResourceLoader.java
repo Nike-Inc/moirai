@@ -1,15 +1,12 @@
 package com.nike.moirai.s3;
 
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
+import software.amazon.awssdk.core.ResponseBytes;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * Supplies the contents of an object in S3 as a string using UTF-8 encoding. Caches object content and uses S3's ETag
@@ -17,7 +14,7 @@ import java.util.stream.Collectors;
  * replacement for {@link S3ResourceLoader}.
  */
 public class CachingS3ResourceLoader implements Supplier<String> {
-    private final AmazonS3 amazonS3Client;
+    private final S3Client s3Client;
     private final String bucket;
     private final String key;
 
@@ -44,57 +41,51 @@ public class CachingS3ResourceLoader implements Supplier<String> {
      * @return a supplier for the S3 resource as a string
      */
     public static CachingS3ResourceLoader withDefaultCredentials(String bucket, String key) {
-        return new CachingS3ResourceLoader(new AmazonS3Client(new DefaultAWSCredentialsProviderChain()), bucket, key);
+        return new CachingS3ResourceLoader(S3Client.create(), bucket, key);
     }
 
     /**
      * Creates an S3ResourceLoader using the provided client for the given S3 location
      *
-     * @param amazonS3 the S3 client to use
+     * @param s3Client the S3 client to use
      * @param bucket the bucket for the S3 resource
      * @param key the key within the bucket for the S3 resource
      * @return a supplier for the S3 resource as a string
      */
-    public static CachingS3ResourceLoader withS3Client(AmazonS3 amazonS3, String bucket, String key) {
-        return new CachingS3ResourceLoader(amazonS3, bucket, key);
+    public static CachingS3ResourceLoader withS3Client(S3Client s3Client, String bucket, String key) {
+        return new CachingS3ResourceLoader(s3Client, bucket, key);
     }
 
-    private CachingS3ResourceLoader(AmazonS3 amazonS3, String bucket, String key) {
-        this.amazonS3Client = amazonS3;
+    private CachingS3ResourceLoader(S3Client s3Client, String bucket, String key) {
+        this.s3Client = s3Client;
         this.bucket = bucket;
         this.key = key;
     }
 
     @Override
     public String get() {
-
-        GetObjectRequest request = new GetObjectRequest(bucket, key);
+        GetObjectRequest.Builder requestBuilder = GetObjectRequest.builder().bucket(bucket).key(key);
         if (cachedObject != null) {
-            request = request.withNonmatchingETagConstraint(cachedObject.eTag);
+            requestBuilder.ifNoneMatch(cachedObject.eTag);
         }
 
-        S3Object s3Object = amazonS3Client.getObject(request);
-        if (s3Object == null) { //eTag hasn't changed
-            return cachedObject.content;
-        } else {
-            return cacheAndReturnObject(s3Object);
+        try {
+            ResponseBytes<GetObjectResponse> responseBytes = s3Client.getObjectAsBytes(requestBuilder.build());
+            return cacheAndReturnObject(responseBytes);
+        } catch (S3Exception s3Exception) {
+            if (s3Exception.statusCode() == 304) {
+                return cachedObject.content;
+            }
+
+            throw s3Exception;
         }
     }
 
-    private String cacheAndReturnObject(S3Object s3Object) {
+    private String cacheAndReturnObject(ResponseBytes<GetObjectResponse> responseBytes) {
+        String eTag = responseBytes.response().eTag();
+        String content = responseBytes.asUtf8String();
 
-        try (
-            InputStream in = s3Object.getObjectContent();
-            InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
-            BufferedReader br = new BufferedReader(isr)) {
-
-            String eTag = s3Object.getObjectMetadata().getETag();
-            String content = br.lines().collect(Collectors.joining(System.lineSeparator()));
-
-            cachedObject = new CachedObject(content, eTag);
-            return content;
-        } catch (IOException | UncheckedIOException e) {
-            throw new RuntimeException("Error loading resource from s3://" + bucket + "/" + key, e);
-        }
+        cachedObject = new CachedObject(content, eTag);
+        return content;
     }
 }

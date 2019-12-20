@@ -1,11 +1,11 @@
 package com.nike.moirai.s3
 
-import java.io.ByteArrayInputStream
-
-import com.amazonaws.services.s3.model.{GetObjectRequest, ObjectMetadata, S3Object, S3ObjectInputStream}
-import com.amazonaws.services.s3.{AmazonS3, Headers}
+import org.scalamock.handlers.CallHandler1
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{FunSpec, Matchers}
+import software.amazon.awssdk.core.ResponseBytes
+import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.model.{GetObjectRequest, GetObjectResponse, S3Exception}
 
 class CachingS3ResourceLoaderSpec extends FunSpec with Matchers with MockFactory {
 
@@ -16,28 +16,20 @@ class CachingS3ResourceLoaderSpec extends FunSpec with Matchers with MockFactory
     content.hashCode.toString
   }
 
-  def mockS3Object(content: String): S3Object = {
-    val s3Object = mock[S3Object]
-
-    val mockMetadata = new ObjectMetadata()
-    mockMetadata.setHeader(Headers.ETAG, eTag(content))
-    (s3Object.getObjectMetadata _).expects().anyNumberOfTimes().returning(mockMetadata)
-    val contentStream = new S3ObjectInputStream(new ByteArrayInputStream(content.getBytes), null, false)
-    (s3Object.getObjectContent _).expects().returning(contentStream)
-
-    s3Object
+  def mockS3Object(content: String): ResponseBytes[GetObjectResponse] = {
+    ResponseBytes.fromByteArray(GetObjectResponse.builder().eTag(eTag(content)).build(), content.getBytes("UTF-8"))
   }
 
-  def expectSingleGetObjectRequest(s3Client: AmazonS3)(requestAssertions: GetObjectRequest => Unit)(returnedContent: => Option[String]) = {
-    (s3Client.getObject(_: GetObjectRequest)).when(*).once().onCall{ request: GetObjectRequest =>
+  def expectSingleGetObjectRequest(s3Client: S3Client)(requestAssertions: GetObjectRequest => Unit)(returnedContent: => Option[String]): CallHandler1[GetObjectRequest, ResponseBytes[GetObjectResponse]] = {
+    (s3Client.getObjectAsBytes(_: GetObjectRequest)).when(*).once().onCall { request: GetObjectRequest =>
       requestAssertions(request)
-      returnedContent.map(mockS3Object).orNull
+      returnedContent.map(mockS3Object).getOrElse(throw S3Exception.builder().statusCode(304).build())
     }
   }
 
   describe("S3ResourceLoader") {
     it("should read the file from the S3 client") {
-      val s3Client = stub[AmazonS3]
+      val s3Client = stub[S3Client]
       val cacher = CachingS3ResourceLoader.withS3Client(s3Client, bucket, objectKey)
 
       val content =
@@ -48,68 +40,66 @@ class CachingS3ResourceLoaderSpec extends FunSpec with Matchers with MockFactory
         """.stripMargin
 
       expectSingleGetObjectRequest(s3Client){ request =>
-        request.getBucketName shouldEqual bucket
-        request.getKey shouldEqual objectKey
-        request.getNonmatchingETagConstraints should contain theSameElementsAs Nil
+        request.bucket() shouldEqual bucket
+        request.key() shouldEqual objectKey
+        request.ifNoneMatch() shouldBe null
       }(Some(content))
 
       cacher.get() shouldEqual content
-
     }
 
     describe("after the file has already been read once") {
 
       val content1 = "content version 1"
 
-      def givenFileReadOnce(s3Client: AmazonS3, cacher: CachingS3ResourceLoader): Unit = {
-
+      def givenFileReadOnce(s3Client: S3Client, cacher: CachingS3ResourceLoader): Unit = {
         expectSingleGetObjectRequest(s3Client) { request =>
-          request.getNonmatchingETagConstraints should contain theSameElementsAs Nil
+          request.ifNoneMatch() shouldBe null
         }(Some(content1))
 
         cacher.get() shouldEqual content1
       }
 
       it("should return cached content when S3 does not return new content") {
-        val s3Client = stub[AmazonS3]
+        val s3Client = stub[S3Client]
         val cacher = CachingS3ResourceLoader.withS3Client(s3Client, bucket, objectKey)
 
         givenFileReadOnce(s3Client, cacher)
 
-        expectSingleGetObjectRequest(s3Client){ request =>()
-          request.getNonmatchingETagConstraints should contain theSameElementsAs List(eTag(content1))
+        expectSingleGetObjectRequest(s3Client){ request =>
+          request.ifNoneMatch() shouldBe eTag(content1)
         }(None)
 
         cacher.get() shouldEqual content1
       }
 
       it("should return new content when S3 returns new content") {
-        val s3Client = stub[AmazonS3]
+        val s3Client = stub[S3Client]
         val cacher = CachingS3ResourceLoader.withS3Client(s3Client, bucket, objectKey)
         givenFileReadOnce(s3Client, cacher)
 
         val content2 = "content version 2"
 
         expectSingleGetObjectRequest(s3Client){ request =>
-          request.getNonmatchingETagConstraints should contain theSameElementsAs List(eTag(content1))
+          request.ifNoneMatch() shouldBe eTag(content1)
         }(Some(content2))
 
         cacher.get() shouldEqual content2
       }
 
       it("should resume returning cached content after S3 throws an exception") {
-        val s3Client = stub[AmazonS3]
+        val s3Client = stub[S3Client]
         val cacher = CachingS3ResourceLoader.withS3Client(s3Client, bucket, objectKey)
         givenFileReadOnce(s3Client, cacher)
 
         expectSingleGetObjectRequest(s3Client){ request =>
-          request.getNonmatchingETagConstraints should contain theSameElementsAs List(eTag(content1))
+          request.ifNoneMatch() shouldBe eTag(content1)
         }(throw new RuntimeException("Mock S3 Exception"))
 
         intercept[RuntimeException](cacher.get())
 
         expectSingleGetObjectRequest(s3Client){ request =>
-          request.getNonmatchingETagConstraints should contain theSameElementsAs List(eTag(content1))
+          request.ifNoneMatch() shouldBe eTag(content1)
         }(None)
 
         cacher.get() shouldEqual content1
