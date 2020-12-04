@@ -1,9 +1,9 @@
 # Moirai
 
-[ ![Download](https://api.bintray.com/packages/nike/maven/moirai-core/images/download.svg) ](https://bintray.com/nike/maven/moirai-core/_latestVersion)
-[![][travis img]][travis]
+[![Download](https://api.bintray.com/packages/nike/maven/moirai-core/images/download.svg)](https://bintray.com/nike/maven/moirai-core/_latestVersion)
+![Build](https://github.com/jrduncans/moirai/workflows/Build/badge.svg)
 [![Code Coverage](https://img.shields.io/codecov/c/github/Nike-Inc/moirai/master.svg)](https://codecov.io/github/Nike-Inc/moirai?branch=master)
- [![][license img]][license]
+ [![License][license img]][license]
 
 [Moirai](https://en.wikipedia.org/wiki/Moirai) (or: the Fates) controls people's destiny. Moirai is a feature-flag and resource-reloading library for the JVM (requires Java 8 or above).
 
@@ -18,6 +18,7 @@ The resource reloading can be used independently of the feature-flagging as a li
 The provided example is in Java, but Moirai should be easy to use in any JVM language.
 
 Creates a `FeatureFlagChecker` that reloads a Typesafe config file that controls whether `getNumber` returns a hard-coded number or calls `calculateRealNumber`:
+
 ```java
 import com.nike.moirai.ConfigFeatureFlagChecker;
 import com.nike.moirai.FeatureCheckInput;
@@ -47,7 +48,7 @@ public class Usage {
         resourceReloader,
         TypesafeConfigDecider.ENABLED_USERS.or(TypesafeConfigDecider.PROPORTION_OF_USERS)
     );
-    
+
     public int getNumber(String userIdentity) {
         if (featureFlagChecker.isFeatureEnabled("random.calculatenumber", FeatureCheckInput.forUser(userIdentity))) {
             return calculateRealNumber();
@@ -55,7 +56,7 @@ public class Usage {
             return 42;
         }
     }
-    
+
     public int calculateRealNumber() {
         // calculate a value
         ...
@@ -64,6 +65,7 @@ public class Usage {
 ```
 
 Example config file:
+
 ```
 moirai {
   random.calculatenumber {
@@ -116,13 +118,9 @@ Another method for making a feature flag decision based on a boolean value in th
 
 While the example from the Usage section demonstrates the intended common pattern for combining these components together, Moirai is designed to be flexible and composable. So you can build your `ResourceReloader`/`Supplier` and your `Predicate` however you want, including with custom implementations, or you can even implement `FeatureFlagChecker` directly if desired.
 
-<a name="license"></a>
 ## License
 
 Moirai is released under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-[travis]:https://travis-ci.org/Nike-Inc/moirai
-[travis img]:https://api.travis-ci.org/Nike-Inc/moirai.svg?branch=master
 
 [license]:LICENSE.txt
 [license img]:https://img.shields.io/badge/License-Apache%202-blue.svg

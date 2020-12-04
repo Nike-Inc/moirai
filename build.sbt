@@ -36,10 +36,6 @@ lazy val moirai = (project in file("."))
   .settings(commonSettings)
   .settings(
     skip in publish := true,
-    // Replace tasks to work around https://github.com/sbt/sbt-bintray/issues/93
-    bintrayRelease := (),
-    bintrayEnsureBintrayPackageExists := (),
-    bintrayEnsureLicenses := (),
     jacocoAggregateReportSettings := JacocoReportSettings(
       title = "Moirai Project Coverage",
       formats = Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML)
@@ -76,7 +72,8 @@ lazy val `moirai-s3` = project
     libraryDependencies ++= Seq(
       awsS3,
       scalaTest,
-      scalaMock
+      scalaMock,
+      logback
     )
   )
 
@@ -87,7 +84,8 @@ lazy val `moirai-typesafeconfig` = project
     description := "Support for reading Moirai configuration using Typesafe Config",
     libraryDependencies ++= Seq(
       typesafeConfig,
-      scalaTest
+      scalaTest,
+      logback
     )
   )
 

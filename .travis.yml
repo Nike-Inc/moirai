@@ -1,9 +1,0 @@
-language: scala
-scala:
-  - 2.12.8
-jdk:
-  - openjdk8
-script:
-  - sbt jacocoAggregate
-after_success:
-  - bash <(curl -s https://codecov.io/bash) -f target/jacoco/report/aggregate/jacoco.xml

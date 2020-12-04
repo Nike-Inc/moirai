@@ -7,7 +7,7 @@ object Dependencies {
   lazy val typesafeConfig =  "com.typesafe" % "config" % "1.3.3"
 
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5" % Test
-  lazy val equalsVerifier = "nl.jqno.equalsverifier" % "equalsverifier" % "2.4.3" % Test
+  lazy val equalsVerifier = "nl.jqno.equalsverifier" % "equalsverifier" % "3.5" % Test
   lazy val scalaJava8Compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0" % Test
   lazy val scalaCheck =  "org.scalacheck" %% "scalacheck" % "1.13.5" % Test
   lazy val logback = "ch.qos.logback" % "logback-classic" % logbackVersion % Test
