@@ -1,7 +1,7 @@
 # Moirai
 
 [![Download](https://api.bintray.com/packages/nike/maven/moirai-core/images/download.svg)](https://bintray.com/nike/maven/moirai-core/_latestVersion)
-![Build](https://github.com/jrduncans/moirai/workflows/Build/badge.svg)
+![Build](https://github.com/Nike-Inc/moirai/workflows/Build/badge.svg)
 [![Code Coverage](https://img.shields.io/codecov/c/github/Nike-Inc/moirai/master.svg)](https://codecov.io/github/Nike-Inc/moirai?branch=master)
  [![License][license img]][license]
 
