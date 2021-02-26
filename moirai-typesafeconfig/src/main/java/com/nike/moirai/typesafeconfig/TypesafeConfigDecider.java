@@ -37,6 +37,10 @@ public class TypesafeConfigDecider {
      * Reads the enabled proportion of users from the config at a path of "moirai.[featureIdentifier].enabledProportion". For instance, for a
      * feature identifier of "foo.service.myfeature", the config value "moirai.foo.service.myfeature.enabledProportion" will be read. If that config
      * path does not exist, {@link Optional#empty()} will be provided.
+     * <p>
+     * Reads the feature group from the config at a path of "moirai.[featureIdentifier].featureGroup". For instance, for a feature identifier
+     * of "foo.service.myfeature", the config value "moirai.foo.service.myfeature.featureGroup" will be read. If that config path does not exist,
+     * {@link Optional#empty()} will be provided.
      *
      * @see ProportionOfUsersConfigDecider
      */
@@ -45,6 +49,12 @@ public class TypesafeConfigDecider {
         protected Optional<Double> enabledProportion(Config config, String featureIdentifier) {
             String path = String.format("moirai.%s.enabledProportion", featureIdentifier);
             return TypesafeConfigExtractor.extractOptional(config, path, Config::getDouble);
+        }
+
+        @Override
+        protected Optional<String> featureGroup(Config config, String featureIdentifier) {
+            String path = String.format("moirai.%s.featureGroup", featureIdentifier);
+            return TypesafeConfigExtractor.extractOptional(config, path, Config::getString);
         }
     };
 

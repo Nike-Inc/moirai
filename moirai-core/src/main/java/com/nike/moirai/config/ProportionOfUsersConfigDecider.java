@@ -16,13 +16,18 @@ public abstract class ProportionOfUsersConfigDecider<T> implements Predicate<Con
     public boolean test(ConfigDecisionInput<T> configDecisionInput) {
         return userIdCheck(configDecisionInput.getFeatureCheckInput(), userId ->
             enabledProportion(configDecisionInput.getConfig(), configDecisionInput.getFeatureIdentifier()).map(enabledProportion ->
-                userHashEnabled(userId, configDecisionInput.getFeatureIdentifier(), enabledProportion)
+                userHashEnabled(
+                    userId,
+                    configDecisionInput.getFeatureIdentifier(),
+                    featureGroup(configDecisionInput.getConfig(), configDecisionInput.getFeatureIdentifier()),
+                    enabledProportion
+                )
             ).orElse(false)
         );
     }
 
-    private boolean userHashEnabled(String userId, String featureIdentifier, double proportion) {
-        return (Math.abs((userId + featureIdentifier).hashCode()) % 100) / 100.0 < proportion;
+    private boolean userHashEnabled(String userId, String featureIdentifier, Optional<String> featureGroup, double proportion) {
+        return (Math.abs((userId + featureGroup.orElse(featureIdentifier)).hashCode()) % 100) / 100.0 < proportion;
     }
 
     /**
@@ -31,9 +36,20 @@ public abstract class ProportionOfUsersConfigDecider<T> implements Predicate<Con
      * Values below zero will be treated the same as 0.0 and values above 1.0 will be treated the same as 1.0.
      * Returning Optional.empty() is equivalent to 0.0; both will return false for all users.
      *
-     * @param config the config source
+     * @param config            the config source
      * @param featureIdentifier the feature
      * @return some proportion between 0.0 and 1.0, or {@link Optional#empty()}
      */
     protected abstract Optional<Double> enabledProportion(T config, String featureIdentifier);
+
+    /**
+     * Provide the featureGroup that the feature should belong to. If two features with the same featureGroup have the same enabled proportion, the same users
+     * will be included in that proportion. Returning Optional.empty() will result in the feature being grouped by itself
+     * (the featureIdentifier will be used as the featureGroup).
+     *
+     * @param config            the config source
+     * @param featureIdentifier the feature
+     * @return the identifier of the feature group or {@link Optional#empty()}
+     */
+    protected abstract Optional<String> featureGroup(T config, String featureIdentifier);
 }

@@ -1,5 +1,9 @@
 # Moirai Release Notes
 
+## Moirai 2.1.0
+
+* Adds a feature-group to adjust how `ProportionOfUsersConfigDecider` decides to hash users. Now the hash will be based on the feature group if it exists, and use the feature identifier if no feature group is defined. In typesafe-config this can be used by adding a `featureGroup=myFeatureGroupName` property within the feature. 
+
 ## Moirai 2.0.0
 
 * When using a `ProportionOfUsersConfigDecider`, the hash will be based on the feature identifier and userId instead of just the userId.

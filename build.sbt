@@ -85,6 +85,7 @@ lazy val `moirai-typesafeconfig` = project
     libraryDependencies ++= Seq(
       typesafeConfig,
       scalaTest,
+      scalaCheck,
       logback
     )
   )
